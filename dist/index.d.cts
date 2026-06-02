@@ -53,6 +53,7 @@ interface BubblitOptions<B extends string> {
 type BubbleSet<B extends string> = readonly B[];
 
 declare const DEFAULT_BUBBLES: readonly ["read", "create", "mutate", "admin", "outbound"];
+declare const discoveryPrompt: (bubbles?: readonly string[]) => string;
 type DefaultBubble = (typeof DEFAULT_BUBBLES)[number];
 declare function bubblit<B extends string = DefaultBubble>(options?: BubblitOptions<B>): BubblitInstance<B>;
 interface BubblitInstance<B extends string> {
@@ -62,4 +63,4 @@ interface BubblitInstance<B extends string> {
     call(params: CallParams): Promise<CallResult>;
 }
 
-export { type BubbleSet, type BubblitInstance, type ToolDefinition, bubblit };
+export { type BubbleSet, type BubblitInstance, type ToolDefinition, bubblit, discoveryPrompt };

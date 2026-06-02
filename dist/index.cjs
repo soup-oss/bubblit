@@ -20,7 +20,8 @@ var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: tru
 // src/index.ts
 var index_exports = {};
 __export(index_exports, {
-  bubblit: () => bubblit
+  bubblit: () => bubblit,
+  discoveryPrompt: () => discoveryPrompt
 });
 module.exports = __toCommonJS(index_exports);
 
@@ -156,6 +157,13 @@ var Registry = class {
 
 // src/index.ts
 var DEFAULT_BUBBLES = ["read", "create", "mutate", "admin", "outbound"];
+var discoveryPrompt = (bubbles) => {
+  const bubbleList = bubbles ? bubbles.join(", ") : "read, create, mutate, admin, outbound";
+  return `Tools are organized by behaviour class: ${bubbleList}.
+Use tools/actsAs { as: "class" } to discover available tools by category,
+then tools/list { names: ["tool_a", "tool_b"] } to load schemas for the specific
+tools you need. Avoid calling tools/list without names \u2014 it returns no schemas.`;
+};
 function bubblit(options) {
   const bubbles = options?.bubbles ?? DEFAULT_BUBBLES;
   const registry = new Registry(bubbles);
@@ -176,6 +184,7 @@ function bubblit(options) {
 }
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
-  bubblit
+  bubblit,
+  discoveryPrompt
 });
 //# sourceMappingURL=index.cjs.map

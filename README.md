@@ -6,6 +6,23 @@ The thinnest layer to bubble up your MCP tools for clean agent lookup.
 npm install @soup-oss/bubblit
 ```
 
+## System Prompt
+
+Include this in your agent's system prompt. Bubblit provides a ready-to-use string:
+
+```typescript
+import { discoveryPrompt } from "@soup-oss/bubblit";
+
+console.log(discoveryPrompt());
+// → Tools are organized by behaviour class: read, create, mutate, admin, outbound.
+//    Use tools/actsAs { as: "class" } to discover available tools by category,
+//    then tools/list { names: ["tool_a", "tool_b"] } to load schemas for the specific
+//    tools you need. Avoid calling tools/list without names — it returns no schemas.
+
+// Custom bubble set
+console.log(discoveryPrompt(["query", "command", "event", "stream"]));
+```
+
 ## Why bubblit?
 
 When an agent sees 500 tools at once, it over-reaches. Bubblit gives you the tools in focused bubbles — the agent sees only what's relevant to its current role.

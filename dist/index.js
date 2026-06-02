@@ -130,6 +130,13 @@ var Registry = class {
 
 // src/index.ts
 var DEFAULT_BUBBLES = ["read", "create", "mutate", "admin", "outbound"];
+var discoveryPrompt = (bubbles) => {
+  const bubbleList = bubbles ? bubbles.join(", ") : "read, create, mutate, admin, outbound";
+  return `Tools are organized by behaviour class: ${bubbleList}.
+Use tools/actsAs { as: "class" } to discover available tools by category,
+then tools/list { names: ["tool_a", "tool_b"] } to load schemas for the specific
+tools you need. Avoid calling tools/list without names \u2014 it returns no schemas.`;
+};
 function bubblit(options) {
   const bubbles = options?.bubbles ?? DEFAULT_BUBBLES;
   const registry = new Registry(bubbles);
@@ -149,6 +156,7 @@ function bubblit(options) {
   };
 }
 export {
-  bubblit
+  bubblit,
+  discoveryPrompt
 };
 //# sourceMappingURL=index.js.map
